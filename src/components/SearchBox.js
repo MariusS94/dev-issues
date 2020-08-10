@@ -14,7 +14,21 @@ function SearchBox(props) {
     [input, button]
   );
 
-  button.addEventListener("click", () => {
+  let timeoutId = null;
+  input.addEventListener("input", () => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      props.onChange(input.value);
+    }, 500);
+  });
+
+  input.addEventListener("keydown", (event) => {
+    if (event.keyCode === 13) {
+      props.onChange(input.value);
+    }
+  });
+
+  button.addEventListener("input", () => {
     props.onChange(input.value);
   });
 
